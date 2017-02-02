@@ -17,8 +17,7 @@ class DNA {
                 score++
             }
         })
-
-        return score / this.target.length
+        this.fitness = score / target.length
     }
 
     crossover(partner) {
@@ -31,7 +30,6 @@ class DNA {
             else
                 child.genes[index] = parent.genes[index]
         })
-
         return child
     }    
 
