@@ -3,14 +3,15 @@ import { getRandomChar } from './../utils/utils'
 class DNA {
     constructor(len) {
         this.genes = []
+        this.genesLen = len
         this.fitness = 0
 
-        for(let x = 0; x < len; x++) {
+        for(let x = 0; x < this.genesLen; x++) {
             this.genes.push(getRandomChar())
         }
     }
 
-    calcFitness(target) {
+    calcFitness = target => {
         let score = 0
         this.genes.forEach((val, index) => {
             if(val === target.charAt(index)) {
@@ -20,28 +21,29 @@ class DNA {
         this.fitness = score / target.length
     }
 
-    crossover(partner) {
-        let child = new DNA(this.genes.length)
-        const midpoint = Math.floor(Math.random() * this.genes.length)
+    crossover = partner => {
+        let child = new DNA(this.genesLen)
+        const midpoint = Math.floor(Math.random() * this.genesLen)
 
-        this.child.forEach((val, index) => {
-            if(index > midpoint)
+        child.genes.forEach((val, index) => {
+            if(index > midpoint) {
                 child.genes[index] = this.genes[index]
-            else
-                child.genes[index] = parent.genes[index]
+            } else {
+                child.genes[index] = partner.genes[index]
+            }                
         })
         return child
     }    
 
-    mutateDNA(mutationRate) {
-        this.genes.forEach((index) => {
+    mutateDNA = mutationRate => {
+        this.genes.forEach(index => {
             if(Math.random() < mutationRate) {
                 this.genes[index] = getRandomChar()
             }
         })
     }
 
-    DNAtoString() {
+    DNAtoString = () => {
         return this.genes.join('')
     }
 }
