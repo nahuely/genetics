@@ -18,29 +18,29 @@ class DNA {
                 score++
             }
         })
-        this.fitness = score / target.length
+        this.fitness = (score / target.length) * 100
     }
 
     crossover = partner => {
         let child = new DNA(this.genesLen)
         const midpoint = Math.floor(Math.random() * this.genesLen)
 
-        child.genes.forEach((val, index) => {
-            if(index > midpoint) {
-                child.genes[index] = this.genes[index]
+        for(let x = 0; x < child.genes.length; x++) {
+            if(x > midpoint) {
+                child.genes[x] = this.genes[x]
             } else {
-                child.genes[index] = partner.genes[index]
-            }                
-        })
+                child.genes[x] = partner.genes[x]
+            }     
+        }
         return child
     }    
 
     mutateDNA = mutationRate => {
-        this.genes.forEach(index => {
-            if(Math.random() < mutationRate) {
-                this.genes[index] = getRandomChar()
+        for(let x = 0; x < this.genes.length; x++) {
+            if(Math.random() <= mutationRate) {
+                this.genes[x] = getRandomChar()
             }
-        })
+        }
     }
 
     DNAtoString = () => {
